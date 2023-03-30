@@ -108,8 +108,36 @@ namespace Matematico.GameFieldControl
             }
 
             return _point;
-        }
+        }        
+        /// <summary>
+        /// Возвращает просчитаное количество очков(по вертикалям,горизонатям) согласно правил игры 
+        /// без сложных комбинаций
+        /// </summary>
+        /// <returns></returns>
+        public int GetPointsNotAll()
+        {
+            int _point = 0;
 
+            List<int[]> _verticaAndHorrizontal = GetVerticalAndHorizontalArras();
+            List<int[]> _diagonal = GetDiagonalArrays();
+
+            ///Просчет очков по вертикалям и горизонталям
+            foreach (int[] arr in _verticaAndHorrizontal)
+            {
+                _point += Scoring.CheckTwoIdentialNumbers(arr);
+                _point += Scoring.CheckThreeIdentialNumbers(arr);
+                _point += Scoring.CheckFourUnitsNumbers(arr);
+                _point += Scoring.CheckTwoPairIdentialNumbers(arr);
+                _point += Scoring.CheckCombinationNumbers(arr);
+            }
+
+            return _point;
+
+        }
+        /// <summary>
+        /// Возвращает Card у которых Visible = true
+        /// </summary>
+        /// <returns>Свободные карты</returns>
         public List<Card> GetFreeCards()
         {
            List<Card> _freeCards = new();
@@ -220,7 +248,6 @@ namespace Matematico.GameFieldControl
 
             return _temp;
         }
-
     }
 
 

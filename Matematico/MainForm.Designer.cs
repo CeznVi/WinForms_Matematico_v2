@@ -42,6 +42,8 @@
             button_NewGame = new Button();
             labelPlayerScore = new Label();
             labelComputerScore = new Label();
+            comboBoxDifficulty = new ComboBox();
+            label1 = new Label();
             statusStrip.SuspendLayout();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -166,12 +168,35 @@
             labelComputerScore.TextAlign = ContentAlignment.MiddleCenter;
             labelComputerScore.Visible = false;
             // 
+            // comboBoxDifficulty
+            // 
+            comboBoxDifficulty.BackColor = SystemColors.Window;
+            comboBoxDifficulty.FormattingEnabled = true;
+            comboBoxDifficulty.IntegralHeight = false;
+            comboBoxDifficulty.Location = new Point(418, 292);
+            comboBoxDifficulty.Name = "comboBoxDifficulty";
+            comboBoxDifficulty.Size = new Size(90, 23);
+            comboBoxDifficulty.TabIndex = 10;
+            comboBoxDifficulty.SelectedValueChanged += comboBoxDifficulty_SelectedValueChanged;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe Script", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(406, 264);
+            label1.Name = "label1";
+            label1.Size = new Size(115, 25);
+            label1.TabIndex = 11;
+            label1.Text = "Сложность";
+            // 
             // Form_Main
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(928, 529);
+            Controls.Add(label1);
+            Controls.Add(comboBoxDifficulty);
             Controls.Add(labelComputerScore);
             Controls.Add(labelPlayerScore);
             Controls.Add(button_NewGame);
@@ -214,5 +239,7 @@
         private ToolStripMenuItem новаяИграToolStripMenuItem;
         private Label labelPlayerScore;
         private Label labelComputerScore;
+        private ComboBox comboBoxDifficulty;
+        private Label label1;
     }
 }

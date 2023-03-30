@@ -12,7 +12,9 @@ namespace Matematico
         public Form_Main()
         {
             InitializeComponent();
+
             _game = new Game(new CardDeck(gameFieldControl_Player.Buttons), new CardDeck(gameFieldControl_Computer.Buttons));
+            IncludeDifficulty();
             _game.OnNextNumberChanged += _game_OnNextNumberChanged;
             _game.OnGameFinished += _game_OnGameFinished;
             _game.ShowScore += _game_ShowScore;
@@ -46,7 +48,7 @@ namespace Matematico
         {
             string message = "Cчет: ";
 
-            if (e.Login ==  _game.Player.Login)
+            if (e.Login == _game.Player.Login)
             {
                 message += _game.Player.Points.ToString();
                 labelPlayerScore.Text = message;
@@ -86,6 +88,21 @@ namespace Matematico
             ///Включение текстового поля отображения набранных очков
             labelPlayerScore.Visible = true;
             labelComputerScore.Visible = true;
+        }
+
+        private void IncludeDifficulty()
+        {
+            comboBoxDifficulty.Items.Add(Difficulty.Easy);
+            comboBoxDifficulty.Items.Add(Difficulty.Normal);
+            comboBoxDifficulty.Items.Add(Difficulty.Hard);
+            comboBoxDifficulty.SelectedIndex = 0;
+            _game.GameDifficulty = comboBoxDifficulty.SelectedItem.ToString();
+
+        }
+
+        private void comboBoxDifficulty_SelectedValueChanged(object sender, EventArgs e)
+        {
+            _game.GameDifficulty = comboBoxDifficulty.SelectedItem.ToString();
         }
     }
 }

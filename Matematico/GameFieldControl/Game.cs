@@ -9,8 +9,16 @@ using System.Xml.Linq;
 
 namespace Matematico.GameFieldControl
 {
+    enum Difficulty
+    {
+        Easy = 0,
+        Normal = 1,
+        Hard = 2,
+    }
+
     class Game
     {
+        public string GameDifficulty { get; set; }
         public int _сurrentNumber = 0;
         private Random _rand;
         private List<int> _numbers;
@@ -131,35 +139,67 @@ namespace Matematico.GameFieldControl
         /// </summary>
         private void CompStep()
         {
-            ////Ход рандомно
-            //List<Card> _freeCard = CardDeckComputer.GetFreeCards();
-            //int index = _rand.Next(0, _freeCard.Count-1);
-            //_freeCard[index].Points = CurrentNumber;
-            //_freeCard[index].Button.Text = CurrentNumber.ToString();
-            //_freeCard[index].Button.Enabled = false;
-
             List<Card> _freeCard = CardDeckComputer.GetFreeCards();
-            int index;
+            int index = -1;
 
             ///если первый ход то "пальцем в небо"
             if (_numbers.Count - 1 == 52)
                 index = _rand.Next(0, _freeCard.Count - 1);
-
-
-            ////описание просчетных ходов с учетом всего
             else
             {
-                index = CalculateMoveInHardMode(_freeCard);
-                
-                if (index == -1)
+                ////Ход рандомно
+                if (GameDifficulty == Difficulty.Easy.ToString())
+                {
                     index = _rand.Next(0, _freeCard.Count - 1);
+
+                }
+                else if (GameDifficulty == Difficulty.Normal.ToString())
+                {
+                    index = CalculateMoveInNormalMode(_freeCard);
+
+                    if (index == -1)
+                        index = _rand.Next(0, _freeCard.Count - 1);
+                }
+                else if (GameDifficulty == Difficulty.Hard.ToString())
+                {
+                    index = CalculateMoveInHardMode(_freeCard);
+
+                    if (index == -1)
+                        index = _rand.Next(0, _freeCard.Count - 1);
+                }
             }
-            
 
-
+            ///Ход
             _freeCard[index].Points = CurrentNumber;
             _freeCard[index].Button.Text = CurrentNumber.ToString();
             _freeCard[index].Button.Enabled = false;
+        }
+
+        private int CalculateMoveInNormalMode(List<Card> freeCard)
+        {
+            ///Переменна для запоминания индекса;
+            int tempIndex = 0;
+
+            int thisPoints = 0, lastPoints = 0;
+
+            for (int i = 0; i < freeCard.Count - 1; i++)
+            {
+                freeCard[i].Points = CurrentNumber;
+
+                thisPoints = CardDeckComputer.GetPointsNotAll();
+
+                if (thisPoints > lastPoints)
+                    tempIndex = i;
+
+                lastPoints = thisPoints;
+
+                freeCard[i].Points = 0;
+            }
+
+            if (thisPoints == 0)
+                return -1;
+
+            return tempIndex;
         }
 
         private int CalculateMoveInHardMode(List<Card> freeCard)
