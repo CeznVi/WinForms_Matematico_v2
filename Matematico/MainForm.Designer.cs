@@ -33,13 +33,15 @@
             toolStripStatusLabel_info = new ToolStripStatusLabel();
             menuStrip1 = new MenuStrip();
             файлToolStripMenuItem = new ToolStripMenuItem();
+            новаяИграToolStripMenuItem = new ToolStripMenuItem();
             gameFieldControl_Player = new GameFieldControl.GameFieldControl();
             gameFieldControl_Computer = new GameFieldControl.GameFieldControl();
             Player = new Label();
             Computer = new Label();
             button_nextNumber = new Button();
             button_NewGame = new Button();
-            новаяИграToolStripMenuItem = new ToolStripMenuItem();
+            labelPlayerScore = new Label();
+            labelComputerScore = new Label();
             statusStrip.SuspendLayout();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -56,8 +58,8 @@
             // toolStripStatusLabel_info
             // 
             toolStripStatusLabel_info.Name = "toolStripStatusLabel_info";
-            toolStripStatusLabel_info.Size = new Size(95, 17);
-            toolStripStatusLabel_info.Text = "Инициализация";
+            toolStripStatusLabel_info.Size = new Size(226, 17);
+            toolStripStatusLabel_info.Text = "Для начала игры - нажмите Новая игра";
             // 
             // menuStrip1
             // 
@@ -74,6 +76,13 @@
             файлToolStripMenuItem.Name = "файлToolStripMenuItem";
             файлToolStripMenuItem.Size = new Size(46, 20);
             файлToolStripMenuItem.Text = "Игра";
+            // 
+            // новаяИграToolStripMenuItem
+            // 
+            новаяИграToolStripMenuItem.Name = "новаяИграToolStripMenuItem";
+            новаяИграToolStripMenuItem.Size = new Size(136, 22);
+            новаяИграToolStripMenuItem.Text = "Новая игра";
+            новаяИграToolStripMenuItem.Click += новаяИграToolStripMenuItem_Click;
             // 
             // gameFieldControl_Player
             // 
@@ -133,12 +142,29 @@
             button_NewGame.UseVisualStyleBackColor = true;
             button_NewGame.Click += button_NewGame_Click;
             // 
-            // новаяИграToolStripMenuItem
+            // labelPlayerScore
             // 
-            новаяИграToolStripMenuItem.Name = "новаяИграToolStripMenuItem";
-            новаяИграToolStripMenuItem.Size = new Size(180, 22);
-            новаяИграToolStripMenuItem.Text = "Новая игра";
-            новаяИграToolStripMenuItem.Click += новаяИграToolStripMenuItem_Click;
+            labelPlayerScore.Font = new Font("Segoe Script", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelPlayerScore.ForeColor = SystemColors.ControlDarkDark;
+            labelPlayerScore.Location = new Point(0, 476);
+            labelPlayerScore.Name = "labelPlayerScore";
+            labelPlayerScore.Size = new Size(400, 30);
+            labelPlayerScore.TabIndex = 8;
+            labelPlayerScore.Text = "Счет: ";
+            labelPlayerScore.TextAlign = ContentAlignment.MiddleCenter;
+            labelPlayerScore.Visible = false;
+            // 
+            // labelComputerScore
+            // 
+            labelComputerScore.Font = new Font("Segoe Script", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelComputerScore.ForeColor = SystemColors.ControlDarkDark;
+            labelComputerScore.Location = new Point(528, 476);
+            labelComputerScore.Name = "labelComputerScore";
+            labelComputerScore.Size = new Size(400, 30);
+            labelComputerScore.TabIndex = 9;
+            labelComputerScore.Text = "Счет: ";
+            labelComputerScore.TextAlign = ContentAlignment.MiddleCenter;
+            labelComputerScore.Visible = false;
             // 
             // Form_Main
             // 
@@ -146,6 +172,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(928, 529);
+            Controls.Add(labelComputerScore);
+            Controls.Add(labelPlayerScore);
             Controls.Add(button_NewGame);
             Controls.Add(button_nextNumber);
             Controls.Add(Computer);
@@ -184,5 +212,7 @@
         private Button button_nextNumber;
         private Button button_NewGame;
         private ToolStripMenuItem новаяИграToolStripMenuItem;
+        private Label labelPlayerScore;
+        private Label labelComputerScore;
     }
 }

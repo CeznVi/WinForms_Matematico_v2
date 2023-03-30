@@ -20,8 +20,14 @@ namespace Matematico.GameFieldControl
         public CardDeck CardDeckPlayer { get; set; }
         public CardDeck CardDeckComputer { get; set; }
 
+        /// <summary>
+        /// Событие следующий номер
+        /// </summary>
         public event EventHandler<int> OnNextNumberChanged;
-
+        /// <summary>
+        /// Обработчик события изменение следующего номера
+        /// </summary>
+        /// <param name="number"></param>
         protected virtual void OnNextNumberChangedCompleted(int number)
         {
             OnNextNumberChanged?.Invoke(this, number);
@@ -33,6 +39,14 @@ namespace Matematico.GameFieldControl
         {
             OnGameFinished?.Invoke(this, winner);
         }
+
+        public event EventHandler<Player> ShowScore;
+
+        protected virtual void GetScore(Player p)
+        {
+            ShowScore?.Invoke(this, p);
+        }
+
 
         /// <summary>
         /// Конструткор
@@ -80,7 +94,12 @@ namespace Matematico.GameFieldControl
                 currentCard.Button.Enabled = false;
                 currentCard.Points = CurrentNumber;
 
+                Player.Points = CardDeckPlayer.GetPoints();
+                GetScore(Player);
+
                 CompStep();
+                Comp.Points = CardDeckComputer.GetPoints();
+                GetScore(Comp);
 
                 if (_numbers.Count == 27)
                 {

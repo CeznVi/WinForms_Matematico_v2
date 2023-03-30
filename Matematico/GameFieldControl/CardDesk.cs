@@ -93,18 +93,18 @@ namespace Matematico.GameFieldControl
                 _point += Scoring.CheckFiveConsecutiveNumbers(arr);
             }
 
-            ///Просчет очков по диагоналям
+            /// Просчет очков по диагоналям
             foreach (int[] arr in _diagonal)
             {
-                _point += Scoring.CheckTwoIdentialNumbers(arr);
-                _point += Scoring.CheckThreeIdentialNumbers(arr);
-                _point += Scoring.CheckFourIdentialNumbers(arr);
-                _point += Scoring.CheckFourUnitsNumbers(arr);
-                _point += Scoring.CheckTwoPairIdentialNumbers(arr);
-                _point += Scoring.CheckThreeAndTwoIdentialNumbers(arr);
-                _point += Scoring.CheckThreeUnitAndTwoThirteenNumbers(arr);
-                _point += Scoring.CheckCombinationNumbers(arr);
-                _point += Scoring.CheckFiveConsecutiveNumbers(arr);
+                _point += Scoring.CheckTwoIdentialNumbers(arr, false);
+                _point += Scoring.CheckThreeIdentialNumbers(arr, false);
+                _point += Scoring.CheckFourIdentialNumbers(arr, false);
+                _point += Scoring.CheckFourUnitsNumbers(arr, false);
+                _point += Scoring.CheckTwoPairIdentialNumbers(arr, false);
+                _point += Scoring.CheckThreeAndTwoIdentialNumbers(arr, false);
+                _point += Scoring.CheckThreeUnitAndTwoThirteenNumbers(arr, false);
+                _point += Scoring.CheckCombinationNumbers(arr, false);
+                _point += Scoring.CheckFiveConsecutiveNumbers(arr, false);
             }
 
             return _point;

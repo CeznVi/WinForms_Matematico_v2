@@ -9,6 +9,6 @@ namespace Matematico.GameFieldControl
     public class Player
     {
         public string Login { get; set; }
-
+        public int Points { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace Matematico.GameFieldControl
         //поиск двух одинаковых чисел    
         public static int CheckTwoIdentialNumbers(int[] arr, bool isColumnOrRow = true)
         {
-            var result = arr.GroupBy(n => n).Where(n => n.Count() == 2).ToList().Count();
+            var result = arr.GroupBy(n => n).Where(n => n.Count() == 2 && n.Key != 0).ToList().Count();
 
             if (result == 1)
             {
@@ -22,7 +22,7 @@ namespace Matematico.GameFieldControl
         //поиск трех одинаковых чисел
         public static int CheckThreeIdentialNumbers(int[] arr, bool isColumnOrRow = true)
         {
-            var result = arr.GroupBy(n => n).Where(n => n.Count() == 3).ToList().Count();
+            var result = arr.GroupBy(n => n).Where(n => n.Count() == 3 && n.Key != 0).ToList().Count();
 
             if (result == 1)
             {
@@ -33,7 +33,7 @@ namespace Matematico.GameFieldControl
         //поиск четырех одинаковых чисел
         public static int CheckFourIdentialNumbers(int[] arr, bool isColumnOrRow = true)
         {
-            var result = arr.GroupBy(n => n).Where(n => n.Count() == 4).ToList().Count();
+            var result = arr.GroupBy(n => n).Where(n => n.Count() == 4 && n.Key != 0).ToList().Count();
 
             if (result > 0)
             {
@@ -55,7 +55,7 @@ namespace Matematico.GameFieldControl
         //поиск двух пар одинаковых чисел    
         public static int CheckTwoPairIdentialNumbers(int[] arr, bool isColumnOrRow = true)
         {
-            var result = arr.GroupBy(n => n).Where(n => n.Count() == 2).ToList().Count();
+            var result = arr.GroupBy(n => n).Where(n => n.Count() == 2 && n.Key != 0).ToList().Count();
 
             if (result == 2)
             {
