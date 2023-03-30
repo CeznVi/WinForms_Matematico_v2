@@ -154,20 +154,14 @@ namespace Matematico.GameFieldControl
 
                 }
                 else if (GameDifficulty == Difficulty.Normal.ToString())
-                {
                     index = CalculateMoveInNormalMode(_freeCard);
-
-                    if (index == -1)
-                        index = _rand.Next(0, _freeCard.Count - 1);
-                }
                 else if (GameDifficulty == Difficulty.Hard.ToString())
-                {
                     index = CalculateMoveInHardMode(_freeCard);
-
-                    if (index == -1)
-                        index = _rand.Next(0, _freeCard.Count - 1);
-                }
             }
+
+            ///Если не нашлось каких либо выгодных комбинаций
+            if (index == -1)
+                index = _rand.Next(0, _freeCard.Count - 1);
 
             ///Ход
             _freeCard[index].Points = CurrentNumber;
