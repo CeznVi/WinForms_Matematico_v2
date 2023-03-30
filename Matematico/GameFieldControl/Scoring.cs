@@ -126,6 +126,9 @@ namespace Matematico.GameFieldControl
 
             for (int i = 0; i < tmp.Count-2; i++)
             {
+                if (tmp[i] == 0)
+                    break;
+
                 if (tmp[i] - tmp[i + 1] == -1)
                     isConsecutiveNum = true;
                 else

@@ -20,14 +20,7 @@ namespace Matematico.GameFieldControl
         public CardDeck CardDeckPlayer { get; set; }
         public CardDeck CardDeckComputer { get; set; }
 
-        /// <summary>
-        /// Событие следующий номер
-        /// </summary>
         public event EventHandler<int> OnNextNumberChanged;
-        /// <summary>
-        /// Обработчик события изменение следующего номера
-        /// </summary>
-        /// <param name="number"></param>
         protected virtual void OnNextNumberChangedCompleted(int number)
         {
             OnNextNumberChanged?.Invoke(this, number);
@@ -138,14 +131,65 @@ namespace Matematico.GameFieldControl
         /// </summary>
         private void CompStep()
         {
-            List<Card> _freeCard = CardDeckComputer.GetFreeCards();
+            ////Ход рандомно
+            //List<Card> _freeCard = CardDeckComputer.GetFreeCards();
+            //int index = _rand.Next(0, _freeCard.Count-1);
+            //_freeCard[index].Points = CurrentNumber;
+            //_freeCard[index].Button.Text = CurrentNumber.ToString();
+            //_freeCard[index].Button.Enabled = false;
 
-            int index = _rand.Next(0, _freeCard.Count-1);
+            List<Card> _freeCard = CardDeckComputer.GetFreeCards();
+            int index;
+
+            ///если первый ход то "пальцем в небо"
+            if (_numbers.Count - 1 == 52)
+                index = _rand.Next(0, _freeCard.Count - 1);
+
+
+            ////описание просчетных ходов с учетом всего
+            else
+            {
+                index = CalculateMoveInHardMode(_freeCard);
+                
+                if (index == -1)
+                    index = _rand.Next(0, _freeCard.Count - 1);
+            }
+            
+
 
             _freeCard[index].Points = CurrentNumber;
             _freeCard[index].Button.Text = CurrentNumber.ToString();
             _freeCard[index].Button.Enabled = false;
         }
+
+        private int CalculateMoveInHardMode(List<Card> freeCard)
+        {
+            ///Переменна для запоминания индекса;
+            int tempIndex = 0;
+ 
+            int thisPoints =0, lastPoints = 0;
+
+            for (int i = 0; i<freeCard.Count-1; i++) 
+            {
+                freeCard[i].Points = CurrentNumber;
+
+                thisPoints = CardDeckComputer.GetPoints();
+
+                if (thisPoints > lastPoints)
+                    tempIndex = i;
+
+                lastPoints = thisPoints;
+
+               freeCard[i].Points = 0;
+            }
+
+            if (thisPoints == 0)
+                return -1;
+
+            return tempIndex;
+        }
+
+
 
         private void fillNumbers()
         {

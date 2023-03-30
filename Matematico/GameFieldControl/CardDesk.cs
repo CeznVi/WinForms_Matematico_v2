@@ -122,7 +122,6 @@ namespace Matematico.GameFieldControl
                         _freeCards.Add(card);
                 }
             }
-
             return _freeCards;
         }
 
